@@ -7,4 +7,5 @@ urlpatterns = [
     path('api/', include('users.urls')),
     path('api/auth/', include('rest_framework.urls')),
     path('api/auth-token/', obtain_auth_token),
+    path('api/', include('tasks.urls')),
 ]
