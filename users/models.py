@@ -18,6 +18,9 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_active', True)
         extra_fields.setdefault('role', 'ADMIN')
 
+        if not email:
+            raise ValueError('Superuser must have an email address')
+
         return self.create_user(
             username=username,
             email=email,
@@ -39,6 +42,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
 
     objects = CustomUserManager()
 
