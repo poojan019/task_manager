@@ -1,0 +1,55 @@
+->  Login command:
+
+curl -X POST http://localhost:8000/auth/login/ \
+-H "Content-Type: application/json" \
+-d '{"username": "admin", "password": "AdminPass123"}'
+
+->  Register new user:
+
+curl -X POST http://localhost:8000/auth/register/ \
+-H "Content-Type: application/json" \
+-H "Authorization: Token ADMIN_TOKEN" \
+-d '{
+    "username": "username",
+    "email": "email",
+    "password": "password",
+    "role": "role"
+}'
+
+->  List all users:
+
+curl -H "Authorization: Token ADMIN_TOKEN" http://localhost:8000/users/
+
+->  Update role:
+
+curl -X PUT http://localhost:8000/users/2/role/ \
+-H "Authorization: Token a8027593c20866782f72170f7e0886920cc57548" \
+-H "Content-Type: application/json" \
+-d '{"role": "MANAGER"}'
+
+->  Create a task:
+
+curl -X POST http://localhost:8000/tasks/ \
+-H "Authorization: Token MANAGER_TOKEN" \
+-H "Content-Type: application/json" \
+-d '{
+    "title": "Fix Login Page",
+    "description": "Update the login page styling",
+    "due_date": "2024-03-01T09:00:00Z",
+    "priority": "HIGH",
+    "assigned_to": 7
+}'
+
+->  Assign a Task:
+
+curl -X POST http://localhost:8000/tasks/1/assign/ \
+-H "Authorization: Token MANAGER_TOKEN" \
+-H "Content-Type: application/json" \
+-d '{"employee_id": 9}'
+
+-> Change the status of task:
+
+curl -X PATCH http://localhost:8000/tasks/2/ \
+-H "Authorization: Token EMPLOYEE_TOKEN" \
+-H "Content-Type: application/json" \
+-d '{"status": "IN_PROGRESS"}'
